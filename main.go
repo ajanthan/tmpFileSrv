@@ -77,8 +77,13 @@ func main() {
 		os.Mkdir(DIR, os.ModePerm)
 		log.Println("Making tmp directory")
 	}
+	port:=os.Getenv("PORT")
+	if port=="" {
+		log.Fatalln("Port must be not empty")
+	}
 	http.HandleFunc("/files/", serveFiles)
-	er := http.ListenAndServe(":8080", nil)
+	log.Println("starting the server on port:",port)
+	er := http.ListenAndServe(":"+port, nil)
 	if er != nil {
 		log.Fatalln("Could not start the server")
 	}
