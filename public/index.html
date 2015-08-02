@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+form { display: block; margin: 20px auto; background: #eee; border-radius: 10px; padding: 15px; }
+#progress { position:relative; width:600px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+#bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+#percent { position:absolute; display:inline-block; top:3px; left:48%; }
+#delete-btn {background-color:rgb(229, 169, 169)}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+<script id="list-template" type="text/x-handlebars-template">
+  <table style="width:100%">
+  <tr>
+    <th>File</th>
+    <th>Size</th>		
+    <th>Uploaded On</th>
+  </tr>
+{{#each files}}
+  <tr>
+    <td>
+	<a href="../files/{{this.Name}}"  >{{this.Name}}</a>	<button id="delete-btn" onclick="deleteFile('{{this.Name}}')" >X</button>
+	</td>
+    <td>{{this.Size}} Mb</td>		
+    <td>{{this.CreatedOn}}</td>
+  </tr>
+ {{/each}}
+</table>
+</script>
+<script src="js/jquery-2.1.4.min.js" ></script>
+<script src="js/jquery.form.js" ></script>
+<script src="js/handlebars-v3.0.3.js" ></script>
+<script src="js/app.js" ></script>
+</head>
+<body>
+
+<div id="content">
+<h2>
+UpLoad files and share
+</h2>
+
+<form id="fileUploadForm" method="POST" action="../files/" enctype="multipart/form-data"  >
+Please specify a file:
+<br>
+<br>
+<input type="file" name="datafile" size="40">
+<input type="submit" value="Send">
+</form>
+<br>
+<div id="uploadstatus">
+<div id="progress">
+        <div id="bar"></div>
+        <div id="percent">0%</div >
+</div>
+<br/>
+<div id="message"></div>
+</div>
+<div id="list-files">
+
+</div>
+</div>
+</body>
+</html>
